@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Technical Implementation Guide — Rob’s Roofing Arizona Account Consolidation</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #F7F9FC;
+    color: #1A202C;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  h1 { font-size: 24px; font-weight: 800; color: #0D1B2A; margin-bottom: 6px; }
+  h2 { font-size: 14px; font-weight: 700; color: #4A5568; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; border-bottom: 2px solid #E2E8F0; padding-bottom: 12px; }
+  h3 { font-size: 16px; font-weight: 700; color: #1A6B9A; margin-top: 24px; margin-bottom: 10px; }
+  p, li { font-size: 14.5px; color: #2D3748; margin-bottom: 10px; }
+  ul { padding-left: 20px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; }
+  .meta-box {
+    background: #EDF2F7;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    font-size: 13.5px;
+  }
+  .meta-box b { color: #1A202C; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  th, td {
+    padding: 12px 14px;
+    border: 1px solid #CBD5E0;
+    text-align: left;
+  }
+  th { background: #0D1B2A; color: #FFFFFF; font-weight: 700; }
+  tr:nth-child(even) td { background: #F7FAFC; }
+  .download-bar {
+    text-align: right;
+    max-width: 800px;
+    margin: 0 auto 16px;
+  }
+  .download-btn {
+    background: #27AE60;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background 0.2s;
+  }
+  .download-btn:hover { background: #219A52; }
+  @media print {
+    body { background: #FFFFFF; padding: 0; }
+    .container { border: none; box-shadow: none; padding: 20px; }
+    .download-bar { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="download-bar">
+  <button class="download-btn" onclick="downloadWordDocument()">📥 Click Here to Download Word Document (.doc)</button>
+</div>
+
+<div class="container" id="doc-content">
+  <h1>Technical Implementation Guide</h1>
+  <h2>Rob’s Roofing — Arizona Housecall Pro Account Consolidation</h2>
+
+  <div class="meta-box">
+    <div><b>Prepared by:</b> Victoria</div>
+    <div><b>Status:</b> Configuration Published</div>
+    <div><b>Integration:</b> SalesRabbit → Zapier → Housecall Pro</div>
+    <div><b>Scope:</b> AZ Accounts Consolidation (Boise Excluded)</div>
+  </div>
+
+  <h3>1. Project Objective</h3>
+  <p>The objective was to consolidate the Phoenix, Tucson, and Chandler lead destinations into the existing <strong>Rob’s Roofing LLC – Arizona</strong> Housecall Pro account while preserving the existing Boise, Idaho setup.</p>
+  <p>The implementation was designed to centralize Arizona customer records without unnecessarily changing the existing territory filters or rebuilding the workflows.</p>
+
+  <h3>2. Initial Review and Verification</h3>
+  <p>Before making changes, the existing Zapier workflows were reviewed to understand how SalesRabbit leads were filtered and routed to Housecall Pro. The review covered:</p>
+  <ul>
+    <li>The Phoenix workflow and its existing Arizona destination.</li>
+    <li>The Tucson workflow and its territory-specific filter conditions.</li>
+    <li>The Chandler workflow and its territory-specific filter conditions.</li>
+    <li>The existing Housecall Pro connections available in Zapier.</li>
+  </ul>
+  <p><em>Note: The Boise connection and workflow were excluded from the changes.</em></p>
+
+  <h3>3. Configuration Changes</h3>
+  <ul>
+    <li><b>A. Phoenix workflow:</b> Retained with its Phoenix-specific filter and Arizona destination. Its filter continues to require the lead's organization name to match Phoenix, along with required phone and street fields.</li>
+    <li><b>B. Tucson workflow:</b> The Housecall Pro destination was changed to the existing Phoenix connection, which points to <strong>Rob’s Roofing LLC – Arizona</strong>. The Tucson-specific filter was preserved, including checks for organization name matching Tucson, primary phone number, street address, state, ZIP code, and city. State and Country fields were also mapped from available SalesRabbit data.</li>
+    <li><b>C. Chandler workflow:</b> The Housecall Pro destination was changed to the existing Phoenix connection, directing customer creation to <strong>Rob’s Roofing LLC – Arizona</strong>. The Chandler-specific filter and existing customer-field mappings were preserved.</li>
+    <li><b>D. Boise workflow:</b> Left untouched to maintain existing operations.</li>
+  </ul>
+
+  <h3>4. Customer Data Mapping</h3>
+  <p>The Create Customer steps were reviewed to preserve existing mappings for first/last names, email/phone numbers, customer tags, street address details, and city/state/ZIP/country where available. This allows each workflow to retain its existing lead information while directing customer creation to the appropriate Housecall Pro account.</p>
+
+  <h3>5. Testing and Validation</h3>
+  <ul>
+    <li><b>Tucson workflow:</b> Customer-creation test succeeded, confirming a Tucson customer record was created in <strong>Rob’s Roofing LLC – Arizona</strong> with correct address details.</li>
+    <li><b>Chandler workflow:</b> Initial test failed due to phone number format requirements (needs 10 digits); a valid test phone number was used, and the subsequent test succeeded.</li>
+    <li><b>Phoenix workflow:</b> Reviewed filter criteria. Tucson samples correctly failed to pass through the Phoenix-specific filter.</li>
+  </ul>
+
+  <h3>6. Intended Routing After Consolidation</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Lead Territory</th>
+        <th>Housecall Pro Destination</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Phoenix</b></td>
+        <td>Rob’s Roofing LLC – Arizona</td>
+      </tr>
+      <tr>
+        <td><b>Tucson</b></td>
+        <td>Rob’s Roofing LLC – Arizona</td>
+      </tr>
+      <tr>
+        <td><b>Chandler</b></td>
+        <td>Rob’s Roofing LLC – Arizona</td>
+      </tr>
+      <tr>
+        <td><b>Boise, Idaho</b></td>
+        <td>Existing Boise account, unchanged</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>7. How the System Works</h3>
+  <p>When a lead is created or updated in SalesRabbit, the corresponding Zapier workflow evaluates the lead against its territory-specific filter conditions. If the lead meets those conditions, Zapier sends the customer information to Housecall Pro using the connection configured in that workflow.</p>
+  <ol>
+    <li>Phoenix leads are processed by the Phoenix workflow and sent to the Arizona account.</li>
+    <li>Tucson leads are processed by the Tucson workflow and sent to the same Arizona account.</li>
+    <li>Chandler leads are processed by the Chandler workflow and sent to the same Arizona account.</li>
+    <li>Boise leads continue through the existing Boise configuration.</li>
+  </ol>
+
+  <h3>8. Publication and Final Operational Check</h3>
+  <p>The updated workflow configurations have been published. The final operational verification is to confirm that the workflows are switched on and that newly arriving leads from Phoenix, Tucson, and Chandler are being created in the Arizona account as intended. The Boise configuration remains outside the scope of changes.</p>
+
+  <h3>Conclusion</h3>
+  <p>The Arizona consolidation configuration has been published, and the Tucson and corrected Chandler customer-creation tests succeeded. The destination changes centralize customer records for Phoenix, Tucson, and Chandler in <strong>Rob’s Roofing LLC – Arizona</strong> while preserving territory-specific filters and leaving Boise, Idaho unaffected.</p>
+</div>
+
+<script>
+function downloadWordDocument() {
+  const htmlHeader = "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Technical Implementation Guide</title><style>body{font-family:Arial,sans-serif;line-height:1.6;color:#333;padding:20px;}h1{font-size:22px;color:#0D1B2A;}h2{font-size:13px;color:#555;text-transform:uppercase;margin-bottom:20px;}h3{font-size:15px;color:#1A6B9A;margin-top:20px;}table{width:100%;border-collapse:collapse;margin:15px 0;}th,td{border:1px solid #999;padding:8px;text-align:left;}th{background:#0D1B2A;color:#fff;}.meta-box{background:#eee;padding:10px;margin-bottom:20px;}</style></head><body>";
+  const htmlFooter = "</body></html>";
+  const htmlContent = document.getElementById('doc-content').innerHTML;
+  
+  const fullDocument = htmlHeader + htmlContent + htmlFooter;
+  
+  const blob = new Blob(['\ufeff' + fullDocument], {
+    type: 'application/msword'
+  });
+  
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Robs_Roofing_AZ_Consolidation_Guide.doc';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+</script>
+
+</body>
+</html>
